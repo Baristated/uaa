@@ -75,7 +75,7 @@ pipeline {
                     pushd uaa-cf-release
                         ./uaa-acceptance-tests.sh || export LAST=$?
                         docker kill $DOCKER_CONTAINER_NAME && docker rm $DOCKER_CONTAINER_NAME || true
-                        if [ $LAST != 0 ]; then
+                        if [ -n "$LAST" ] && [ "$LAST" -ne 0 ]; then
                             exit $LAST
                         fi
                     popd
